@@ -1,74 +1,90 @@
-# React + TypeScript + Vite
+﻿# JGR Construction App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para la gestión de tareas de construcción, desarrollada con React, TypeScript y Vite.
 
-Currently, two official plugins are available:
+##  Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  Autenticación de usuarios (Login/Register)
+-  CRUD completo de tareas
+-  Marcar tareas como completadas
+-  Modo edición con bloqueo de acciones
+-  Ordenamiento automático por fecha de creación
+-  Interfaz moderna y responsive con Tailwind CSS
 
-## React Compiler
+##  Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19.2** - Biblioteca UI
+- **TypeScript 5.9** - Tipado estático
+- **Vite 7.2** - Build tool y dev server
+- **React Router DOM 7.13** - Enrutamiento
+- **Zustand 5.0** - Gestión de estado
+- **Axios 1.13** - Cliente HTTP
+- **Tailwind CSS 4.1** - Estilos y diseño
 
-## Expanding the ESLint configuration
+##  Requisitos Previos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+ instalado
+- npm o yarn
+- Backend API corriendo en `http://localhost:4000`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+##  Configuración
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Clonar el repositorio
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/nestordqa/jgr-construction-app
+cd jgr-construction-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
-# jgr-construction-app
+
+### 3. Configurar variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+
+```env
+VITE_API_URL=http://localhost:4000/api
+```
+
+>  **IMPORTANTE**: La variable de entorno `VITE_API_URL` es obligatoria para conectar con el backend.
+
+##  Ejecutar el proyecto
+
+### Modo desarrollo
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
+
+### Build para producción
+
+```bash
+npm run build
+```
+
+### Preview de producción
+
+```bash
+npm run preview
+```
+
+El sistema de autenticación utiliza JWT tokens almacenados en localStorage:
+- Login de usuarios existentes
+- Registro de nuevos usuarios
+- Rutas protegidas con redirección automática
+- Logout con limpieza de estado
+
+##  Gestión de Tareas
+
+### Funcionalidades:
+- **Crear**: Agregar nuevas tareas con título y descripción
+- **Editar**: Modificar tareas existentes (modo exclusivo)
+- **Eliminar**: Borrar tareas
+- **Completar**: Marcar/desmarcar como completadas
+- **Ordenamiento**: Automático por fecha de creación (más recientes primero)
