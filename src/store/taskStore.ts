@@ -34,7 +34,12 @@ export const useTaskStore = create<TaskState>((set, _get) => ({
         try {
             set({ loading: true, error: null });
             const res = await getTasks();
-            set({ tasks: res.data });
+            const sortedTasks = res.data.sort((a, b) => {
+                const dateA = new Date(a.createdAt || 0).getTime();
+                const dateB = new Date(b.createdAt || 0).getTime();
+                return dateB - dateA;
+            });
+            set({ tasks: sortedTasks });
         } catch (err) {
             set({ error: "Error al obtener tareas" });
         } finally {
@@ -46,7 +51,17 @@ export const useTaskStore = create<TaskState>((set, _get) => ({
     addTask: async ({ title, description }) => {
         try {
             const res = await createTask({ title, description });
-            set((state) => ({ tasks: [...state.tasks, res.data] }));
+            set((state) => {
+                const newTasks = [res.data, ...state.tasks];
+                // Ordenar por createdAt descendente
+                return {
+                    tasks: newTasks.sort((a, b) => {
+                        const dateA = new Date(a.createdAt || 0).getTime();
+                        const dateB = new Date(b.createdAt || 0).getTime();
+                        return dateB - dateA;
+                    })
+                };
+            });
         } catch {
             set({ error: "Error al crear tarea" });
         }

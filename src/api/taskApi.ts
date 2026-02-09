@@ -5,6 +5,7 @@ export type Task = {
   title: string;
   description?: string | null;
   isCompleted?: boolean;
+  createdAt?: string;
 };
 
 export const getTasks = () => axiosClient.get<Task[]>("/tasks");
